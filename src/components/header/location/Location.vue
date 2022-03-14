@@ -4,7 +4,7 @@
     <div class="location__managment">
       <h6 class="location__change">Сменить город</h6>
       <div class="location__mycoordinates">
-        <img src="" alt="Location icon" />
+        <SvgIcon name="sun" />
         <p>Мое местоположение</p>
       </div>
     </div>
@@ -12,7 +12,11 @@
 </template>
 
 <script>
+import SvgIcon from "./../../constructor/SvgIcon.vue";
 export default {
   name: "location-block",
+  components: {
+    SvgIcon,
+  },
 };
 </script>
