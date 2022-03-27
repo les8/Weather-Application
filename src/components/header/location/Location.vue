@@ -1,13 +1,18 @@
 <template>
   <div class="location">
-    <div class="location__search" v-if="1 === 2">
-      <input type="search" name="city-search" />
-      <input type="submit" value="OK" />
+    <div class="location__search" v-if="isChanged">
+      <input
+        type="search"
+        name="city-search"
+        v-model="currentCity"
+        v-on:keyup.enter="submitCity"
+      />
+      <input type="submit" value="OK" v-on:click="submitCity" />
     </div>
     <div class="location__info" v-else>
-      <h3 class="location__name">Омск</h3>
+      <h3 class="location__name">{{ currentCity }}</h3>
       <div class="location__managment">
-        <h6 class="location__change">Сменить город</h6>
+        <h6 class="location__change" v-on:click="chooseCity">Сменить город</h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
           <p>Мое местоположение</p>
@@ -21,8 +26,23 @@
 import SvgIcon from "./../../constructor/SvgIcon.vue";
 export default {
   name: "location-block",
+  data() {
+    return {
+      currentCity: "Kirov",
+      isChanged: false,
+    };
+  },
   components: {
     SvgIcon,
+  },
+  methods: {
+    chooseCity() {
+      this.currentCity = "";
+      this.isChanged = true;
+    },
+    submitCity() {
+      this.isChanged = false;
+    },
   },
 };
 </script>
