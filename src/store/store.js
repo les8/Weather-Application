@@ -9,4 +9,9 @@ export const store = createStore({
   getters: {
     getCurrentCity: (state) => state.currentCity,
   },
+  mutations: {
+    setCurrentCity(state, payload) {
+      state.currentCity = payload;
+    },
+  },
 });

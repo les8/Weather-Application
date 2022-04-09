@@ -5,14 +5,18 @@
         type="search"
         name="city-search"
         v-model="currentCity"
-        v-on:keyup.enter="submitCity"
+        v-on:keyup.enter="setCurrentCity"
       />
-      <input type="submit" value="OK" v-on:click="submitCity" />
+      <input type="submit" value="OK" v-on:click="setCurrentCity" />
     </div>
     <div class="location__info" v-else>
-      <h3 class="location__name">{{ currentCity }}</h3>
+      <h3 class="location__name" v-on:click="editCurrentCity">
+        {{ this.currentCity }}
+      </h3>
       <div class="location__managment">
-        <h6 class="location__change" v-on:click="chooseCity">Сменить город</h6>
+        <h6 class="location__change" v-on:click="editCurrentCity">
+          Сменить город
+        </h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
           <p>Мое местоположение</p>
@@ -29,20 +33,23 @@ export default {
   data() {
     return {
       info: null,
-      currentCity: "Kirov",
+      currentCity: "",
       isChanged: false,
     };
   },
-  mounted() {},
+  mounted() {
+    this.currentCity = this.$store.getters.getCurrentCity;
+  },
   components: {
     SvgIcon,
   },
   methods: {
-    chooseCity() {
+    editCurrentCity() {
       this.currentCity = "";
       this.isChanged = true;
     },
-    submitCity() {
+    setCurrentCity() {
+      this.$store.commit("setCurrentCity", this.currentCity);
       this.isChanged = false;
     },
   },
