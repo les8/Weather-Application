@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import SvgIcon from "./../../constructor/SvgIcon.vue";
 export default {
   name: "location-block",
@@ -34,13 +33,7 @@ export default {
       isChanged: false,
     };
   },
-  mounted() {
-    axios
-      .get(
-        "http://api.openweathermap.org/data/2.5/forecast?id=524901&appid={API KEY}"
-      )
-      .then((response) => (this.info = response));
-  },
+  mounted() {},
   components: {
     SvgIcon,
   },
