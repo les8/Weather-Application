@@ -78,6 +78,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "/src/styles/variables.scss";
+
 .location {
   &__search {
     width: 579px;
@@ -95,9 +97,19 @@ export default {
       background: none;
     }
   }
+  &__name {
+    font-size: $title-size;
+  }
+  &__change {
+    font-size: $subtitle-size;
+  }
+  &__mycoordinates {
+    font-size: $subtitle-size;
+  }
   &__icon {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 42px;
+    fill: $main-color;
     transform: scale(-1, 1);
   }
 }
