@@ -1,6 +1,6 @@
 <template>
   <div class="location">
-    <div class="location__search" v-if="isChanged">
+    <div class="location__search" v-if="inChanges">
       <input
         type="search"
         name="city-search"
@@ -28,17 +28,26 @@
 
 <script>
 import SvgIcon from "./../../constructor/SvgIcon.vue";
+import axios from "axios";
+
 export default {
   name: "location-block",
   data() {
     return {
-      info: null,
       currentCity: "",
-      isChanged: false,
+      apiKey: "",
+      inChanges: false,
     };
   },
   mounted() {
     this.currentCity = this.$store.getters.getCurrentCity;
+    this.apiKey = this.$store.getters.getApiKey;
+    this.getData();
+  },
+  updated() {
+    if (!this.inChanges) {
+      this.getData();
+    }
   },
   components: {
     SvgIcon,
@@ -46,11 +55,20 @@ export default {
   methods: {
     editCurrentCity() {
       this.currentCity = "";
-      this.isChanged = true;
+      this.inChanges = true;
     },
     setCurrentCity() {
       this.$store.commit("setCurrentCity", this.currentCity);
-      this.isChanged = false;
+      this.inChanges = false;
+    },
+    getData() {
+      axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${this.currentCity}&appid=${this.apiKey}`
+        )
+        .then((response) =>
+          this.$store.commit("setCurrentWeather", response.data)
+        );
     },
   },
 };
