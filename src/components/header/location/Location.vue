@@ -42,10 +42,13 @@ export default {
   mounted() {
     this.currentCity = this.$store.getters.getCurrentCity;
     this.apiKey = this.$store.getters.getApiKey;
-    this.getData();
+
+    if (this.apiKey) {
+      this.getData();
+    }
   },
   updated() {
-    if (!this.inChanges) {
+    if (!this.inChanges && this.apiKey) {
       this.getData();
     }
   },
