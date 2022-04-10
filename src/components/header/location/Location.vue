@@ -15,11 +15,11 @@
       </h3>
       <div class="location__managment">
         <h6 class="location__change" v-on:click="editCurrentCity">
-          Change region
+          Change Region
         </h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
-          <p>My location</p>
+          <p>My Location</p>
         </div>
       </div>
     </div>
