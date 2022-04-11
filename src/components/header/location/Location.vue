@@ -4,6 +4,7 @@
       <input
         type="search"
         name="city-search"
+        placeholder="search a weather..."
         v-model="currentCity"
         v-on:keyup.enter="setCurrentCity"
       />
@@ -82,11 +83,17 @@ export default {
 
 .location {
   &__search {
+    display: flex;
     width: 579px;
     height: 97px;
+    padding: 30px;
     border-radius: 8px;
+    background-color: $main-color;
+    font-size: $text-search-size;
+    color: $secondary-color;
 
     input[type="search"] {
+      flex-grow: 1;
       border: none;
       outline: none;
       -webkit-appearance: none;
@@ -95,22 +102,42 @@ export default {
     input[type="submit"] {
       border: none;
       background: none;
+      cursor: pointer;
     }
   }
   &__name {
+    margin-bottom: 9px;
     font-size: $title-size;
+    cursor: pointer;
+  }
+  &__managment {
+    display: flex;
   }
   &__change {
+    margin-right: 29px;
     font-size: $subtitle-size;
+    opacity: 0.6;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
   }
   &__mycoordinates {
+    display: flex;
     font-size: $subtitle-size;
+    opacity: 0.6;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
   }
   &__icon {
     width: 19px;
     height: 23px;
+    margin-right: 12px;
     fill: $main-color;
-    opacity: 0.4;
   }
 }
 </style>
