@@ -4,7 +4,7 @@
       <input
         type="search"
         name="city-search"
-        placeholder="search a weather..."
+        placeholder="search for a lovely place..."
         v-model="currentCity"
         v-on:keyup.enter="setCurrentCity"
       />
