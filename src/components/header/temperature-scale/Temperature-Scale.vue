@@ -1,13 +1,13 @@
 <template>
   <div class="temperature-scale">
     <p class="temperature-scale__degree">º</p>
-    <div class="temperature-scale_toggle">
+    <div class="temperature-scale__toggle">
       <div class="temperature-scale__items temperature-scale__item-1">
-        <input id="celsus" type="radio" name="radio" value="on" checked />
+        <input id="celsus" type="radio" name="radio" value="on" />
         <label for="celsus">C</label>
       </div>
       <div class="temperature-scale__items temperature-scale__item-2">
-        <input id="fahrenheit" type="radio" name="radio" value="off" />
+        <input id="fahrenheit" type="radio" name="radio" value="off" checked />
         <label for="fahrenheit">F</label>
       </div>
     </div>
@@ -21,7 +21,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import "/src/styles/variables.scss";
+
 .temperature-scale {
+  display: flex;
+  font-size: $subtitle-size;
+
+  &__degree {
+    margin-right: 12px;
+  }
+
   &__toggle {
     display: inline-block;
     overflow: hidden;
@@ -34,11 +43,18 @@ export default {
       display: none;
     }
 
+    input[type="radio"]:checked + label {
+      background: rgba(255, 255, 255, 0.4);
+      color: $main-color;
+    }
+
     label {
-      display: inline-block;
-      padding: 0px 15px;
+      display: flex;
+      align-items: center;
+      padding: 0px 14px;
       line-height: 34px;
-      border: 1px solid #999;
+      height: 29px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-right: none;
       cursor: pointer;
       user-select: none;
@@ -49,20 +65,13 @@ export default {
     label {
       border-radius: 6px 0 0 6px;
     }
-
-    input[type="radio"]:checked + label {
-      background: #ffc5c5;
-    }
   }
 
   &__item-2 {
     label {
       border-radius: 0 6px 6px 0;
-      border-right: 1px solid #999;
-    }
-
-    input[type="radio"]:checked + label {
-      background: #bbffbb;
+      border-right: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: none;
     }
   }
 }
