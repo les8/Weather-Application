@@ -4,7 +4,9 @@
       <Location />
       <TemperatureScale />
     </div>
-    <div class="main"></div>
+    <div class="main">
+      <MainWeather />
+    </div>
     <div class="footer"></div>
   </div>
 </template>
@@ -12,11 +14,13 @@
 <script>
 import Location from "./components/header/location/Location.vue";
 import TemperatureScale from "./components/header/temperature-scale/Temperature-Scale.vue";
+import MainWeather from "./components/main/MainWeather.vue";
 export default {
   name: "App",
   components: {
     Location,
     TemperatureScale,
+    MainWeather,
   },
 };
 </script>
