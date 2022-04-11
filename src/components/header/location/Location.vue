@@ -107,10 +107,10 @@ export default {
     font-size: $subtitle-size;
   }
   &__icon {
-    width: 30px;
-    height: 42px;
+    width: 19px;
+    height: 23px;
     fill: $main-color;
-    transform: scale(-1, 1);
+    opacity: 0.4;
   }
 }
 </style>
