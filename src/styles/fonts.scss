@@ -2,7 +2,7 @@
     @font-face {
         font-family: $font_name;
         font-display: swap;
-        src: url("/src/fonts/#{$file_name}.ttf") format("ttf");
+        src: url("/src/fonts/#{$file_name}.ttf");
         font-weight: #{$weight};
         font-style: #{$style};
     }
