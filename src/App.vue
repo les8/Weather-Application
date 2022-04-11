@@ -24,4 +24,13 @@ export default {
 <style lang="scss">
 @import "./styles/common.scss";
 @import "./styles/settings.scss";
+
+.wrapper {
+  padding: 75px 75px 122px 100px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
 </style>
