@@ -29,7 +29,6 @@
 
 <script>
 import SvgIcon from "./../../constructor/SvgIcon.vue";
-import axios from "axios";
 
 export default {
   name: "location-block",
@@ -42,16 +41,6 @@ export default {
   },
   mounted() {
     this.currentCity = this.$store.getters.getCurrentCity;
-    this.apiKey = this.$store.getters.getApiKey;
-
-    if (this.apiKey) {
-      this.getData();
-    }
-  },
-  updated() {
-    if (!this.inChanges && this.apiKey) {
-      this.getData();
-    }
   },
   components: {
     SvgIcon,
@@ -64,15 +53,6 @@ export default {
     setCurrentCity() {
       this.$store.commit("setCurrentCity", this.currentCity);
       this.inChanges = false;
-    },
-    getData() {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${this.currentCity}&appid=${this.apiKey}`
-        )
-        .then((response) =>
-          this.$store.commit("setCurrentWeather", response.data)
-        );
     },
   },
 };

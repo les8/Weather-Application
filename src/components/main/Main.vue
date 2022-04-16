@@ -13,14 +13,29 @@ import SvgIcon from "../constructor/SvgIcon.vue";
 
 export default {
   name: "main-weather",
-  data() {
-    return {
-      currentTemperature: "30",
-      weatherInfo: "Mostly sunny",
-    };
-  },
   components: {
     SvgIcon,
+  },
+  computed: {
+    apiData() {
+      return this.$store.getters.getCurrentWeather;
+    },
+    currentTemperature() {
+      if (this.apiData) {
+        const temperature = this.apiData.main.temp;
+        return Math.round(this.kelvinToСelsius(parseInt(temperature, 10)));
+      } else return "42";
+    },
+    weatherInfo() {
+      if (this.apiData) {
+        return this.apiData.weather[0].description;
+      } else return "Mostly sunny";
+    },
+  },
+  methods: {
+    kelvinToСelsius(num) {
+      return num - 273.15;
+    },
   },
 };
 </script>
