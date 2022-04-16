@@ -3,11 +3,11 @@
     <p class="temperature-scale__degree">º</p>
     <div class="temperature-scale__toggle">
       <div class="temperature-scale__items temperature-scale__item-1">
-        <input id="celsus" type="radio" name="radio" value="on" />
+        <input id="celsus" type="radio" name="radio" value="on" checked />
         <label for="celsus">C</label>
       </div>
       <div class="temperature-scale__items temperature-scale__item-2">
-        <input id="fahrenheit" type="radio" name="radio" value="off" checked />
+        <input id="fahrenheit" type="radio" name="radio" value="off" />
         <label for="fahrenheit">F</label>
       </div>
     </div>
