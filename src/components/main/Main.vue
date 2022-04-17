@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="main__head">
-      <SvgIcon name="sun" className="main__icon" />
+      <SvgIcon className="main__icon" v-bind:name="addWeatherIcon" />
       <div class="main__temperature">{{ this.currentTemperature }}º</div>
     </div>
     <div class="main__info">{{ this.weatherInfo }}</div>
@@ -31,10 +31,28 @@ export default {
         return this.apiData.weather[0].description;
       } else return "Mostly sunny";
     },
+    addWeatherIcon() {
+      if (this.apiData) {
+        return this.choseWeatherIcon();
+      } else return "sun";
+    },
   },
   methods: {
     kelvinToСelsius(num) {
       return num - 273.15;
+    },
+    choseWeatherIcon() {
+      if (this.apiData.weather[0].main === "Clear") {
+        return "sun";
+      } else if (this.apiData.weather[0].main === "Rain") {
+        return "rain";
+      } else if (this.apiData.weather[0].main === "Snow") {
+        return "snow";
+      } else if (this.apiData.weather[0].description === "overcast clouds") {
+        return "cloud";
+      } else if (this.apiData.weather[0].main === "Clouds") {
+        return "partly";
+      } else return "location"; //for catch errors, becouse api docs is shit
     },
   },
 };
@@ -60,14 +78,18 @@ export default {
   }
 
   &__icon {
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     margin-right: 15px;
     fill: rgb(209, 236, 87);
   }
 
   &__info {
     font-size: $text-size;
+  }
+
+  &__info::first-letter {
+    text-transform: capitalize;
   }
 }
 </style>

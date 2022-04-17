@@ -35,12 +35,14 @@ export default {
   data() {
     return {
       currentCity: "",
-      apiKey: "",
       inChanges: false,
     };
   },
   mounted() {
     this.currentCity = this.$store.getters.getCurrentCity;
+  },
+  updated() {
+    this.$store.dispatch("setCurrentWeather");
   },
   components: {
     SvgIcon,
