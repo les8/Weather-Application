@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 export const store = createStore({
   state() {
@@ -19,6 +20,16 @@ export const store = createStore({
     },
     setCurrentWeather(state, payload) {
       state.currentWeather = payload;
+    },
+  },
+  actions: {
+    async setCurrentWeather(state) {
+      const weather = await axios
+        .get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${this.state.currentCity}&appid=${this.state.apiKey}`
+        )
+        .then((response) => response.data);
+      state.commit("setCurrentWeather", weather);
     },
   },
 });

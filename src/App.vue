@@ -22,6 +22,9 @@ export default {
     Main,
     Footer,
   },
+  mounted() {
+    this.$store.dispatch("setCurrentWeather");
+  },
 };
 </script>
 
