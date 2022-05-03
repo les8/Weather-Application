@@ -23,7 +23,8 @@ export default {
     Footer,
   },
   mounted() {
-    this.$store.dispatch("setCurrentWeather");
+    this.$store.dispatch("setCurrentPosition");
+    this.$store.dispatch("setWeatherByName");
   },
 };
 </script>

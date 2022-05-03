@@ -12,7 +12,7 @@
     </div>
     <div class="location__info" v-else>
       <h3 class="location__name" v-on:click="editCurrentCity">
-        {{ this.currentCity }}
+        {{ this.$store.getters.getCurrentCity }}
       </h3>
       <div class="location__managment">
         <h6 class="location__change" v-on:click="editCurrentCity">
@@ -20,7 +20,7 @@
         </h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
-          <p>My Location</p>
+          <p v-on:click="getLocalWeather">My Location</p>
         </div>
       </div>
     </div>
@@ -38,12 +38,6 @@ export default {
       inChanges: false,
     };
   },
-  mounted() {
-    this.currentCity = this.$store.getters.getCurrentCity;
-  },
-  updated() {
-    this.$store.dispatch("setCurrentWeather");
-  },
   components: {
     SvgIcon,
   },
@@ -54,7 +48,11 @@ export default {
     },
     setCurrentCity() {
       this.$store.commit("setCurrentCity", this.currentCity);
+      this.$store.dispatch("setWeatherByName");
       this.inChanges = false;
+    },
+    getLocalWeather() {
+      this.$store.dispatch("setWeatherByCoords");
     },
   },
 };
