@@ -24,17 +24,17 @@ export default {
       if (this.apiData) {
         const temperature = this.apiData.main.temp;
         return Math.round(this.kelvinToСelsius(parseInt(temperature, 10)));
-      } else return "42";
+      } else return "no data";
     },
     weatherInfo() {
       if (this.apiData) {
         return this.apiData.weather[0].description;
-      } else return "Mostly sunny";
+      } else return "no data";
     },
     addWeatherIcon() {
       if (this.apiData) {
         return this.choseWeatherIcon();
-      } else return "sun";
+      } else return "location";
     },
   },
   methods: {
@@ -52,6 +52,8 @@ export default {
         return "cloud";
       } else if (this.apiData.weather[0].main === "Clouds") {
         return "partly";
+      } else if (this.apiData.weather[0].main === "Mist") {
+        return "cloud";
       } else return "location"; //for catch errors, becouse api docs is shit
     },
   },

@@ -31,12 +31,12 @@ export default {
     wind() {
       if (this.apiData) {
         return this.apiData.wind.speed.toFixed(1);
-      } else return "5";
+      } else return "no data";
     },
     windDirection() {
       if (this.apiData) {
         return this.convertWindDirection(this.apiData.wind.deg);
-      } else return "west";
+      } else return "no direction";
     },
     pressure() {
       if (this.apiData) {
@@ -46,17 +46,17 @@ export default {
             parseInt(hectopascalPressure, 10)
           )
         );
-      } else return "752";
+      } else return "no data";
     },
     humidity() {
       if (this.apiData) {
         return this.apiData.main.humidity;
-      } else return "50";
+      } else return "no data";
     },
     visibility() {
       if (this.apiData) {
         return this.apiData.visibility;
-      } else return "1000";
+      } else return "no data";
     },
   },
   methods: {
