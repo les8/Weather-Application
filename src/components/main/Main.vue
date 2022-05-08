@@ -2,7 +2,9 @@
   <div class="main">
     <div class="main__head">
       <SvgIcon className="main__icon" :name="addWeatherIcon" />
-      <div class="main__temperature">{{ currentTemperature }}º</div>
+      <div class="main__temperature">
+        {{ inFahrenheit ? fahrenheitTemperature : celsiusTemperature }}º
+      </div>
     </div>
     <div class="main__info">{{ weatherInfo }}</div>
   </div>
@@ -10,6 +12,7 @@
 
 <script>
 import SvgIcon from "../constructor/SvgIcon.vue";
+import { kelvinToСelsius } from "@/js/formules";
 
 export default {
   name: "main-weather",
@@ -20,11 +23,16 @@ export default {
     apiData() {
       return this.$store.getters.getCurrentWeather;
     },
-    currentTemperature() {
+    inFahrenheit() {
+      return this.$store.getters.getFahrenheitBoolean;
+    },
+    fahrenheitTemperature() {
+      return this.$store.getters.getFahrenheitTemperature;
+    },
+    celsiusTemperature() {
       if (this.apiData) {
         const temperature = this.apiData.main.temp;
-        console.log(temperature);
-        return Math.round(this.kelvinToСelsius(parseInt(temperature, 10)));
+        return Math.round(kelvinToСelsius(parseInt(temperature, 10)));
       } else return "no data";
     },
     weatherInfo() {
@@ -39,9 +47,6 @@ export default {
     },
   },
   methods: {
-    kelvinToСelsius(num) {
-      return num - 273.15;
-    },
     choseWeatherIcon() {
       if (this.apiData.weather[0].main === "Clear") {
         return "sun";
