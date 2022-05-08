@@ -1,10 +1,10 @@
 <template>
   <div class="main">
     <div class="main__head">
-      <SvgIcon className="main__icon" v-bind:name="addWeatherIcon" />
-      <div class="main__temperature">{{ this.currentTemperature }}º</div>
+      <SvgIcon className="main__icon" :name="addWeatherIcon" />
+      <div class="main__temperature">{{ currentTemperature }}º</div>
     </div>
-    <div class="main__info">{{ this.weatherInfo }}</div>
+    <div class="main__info">{{ weatherInfo }}</div>
   </div>
 </template>
 
@@ -23,6 +23,7 @@ export default {
     currentTemperature() {
       if (this.apiData) {
         const temperature = this.apiData.main.temp;
+        console.log(temperature);
         return Math.round(this.kelvinToСelsius(parseInt(temperature, 10)));
       } else return "no data";
     },

@@ -1,26 +1,24 @@
 <template>
   <div class="location">
-    <div class="location__search" v-if="inChanges">
+    <div v-if="inChanges" class="location__search">
       <input
         type="search"
         name="city-search"
         placeholder="search for a lovely place..."
-        v-model="currentCity"
-        v-on:keyup.enter="setCurrentCity"
+        v-model="inputCity"
+        @keydown.enter="setCurrentCity"
       />
-      <input type="submit" value="OK" v-on:click="setCurrentCity" />
+      <input type="submit" value="OK" @click="setCurrentCity" />
     </div>
-    <div class="location__info" v-else>
-      <h3 class="location__name" v-on:click="editCurrentCity">
-        {{ this.$store.getters.getCurrentCity }}
+    <div v-else class="location__info">
+      <h3 class="location__name" @click="editCurrentCity">
+        {{ storeCity }}
       </h3>
       <div class="location__managment">
-        <h6 class="location__change" v-on:click="editCurrentCity">
-          Change Region
-        </h6>
+        <h6 class="location__change" @click="editCurrentCity">Change Region</h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
-          <p v-on:click="getLocalWeather">My Location</p>
+          <p @click="getLocalWeather">My Location</p>
         </div>
       </div>
     </div>
@@ -34,20 +32,25 @@ export default {
   name: "location-block",
   data() {
     return {
-      currentCity: "",
+      inputCity: "",
       inChanges: false,
     };
+  },
+  computed: {
+    storeCity() {
+      return this.$store.getters.getCurrentCity;
+    },
   },
   components: {
     SvgIcon,
   },
   methods: {
     editCurrentCity() {
-      this.currentCity = "";
+      this.inputCity = "";
       this.inChanges = true;
     },
     setCurrentCity() {
-      this.$store.commit("setCurrentCity", this.currentCity);
+      this.$store.commit("setCurrentCity", this.inputCity);
       this.$store.dispatch("setWeatherByName");
       this.inChanges = false;
     },
