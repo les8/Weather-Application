@@ -2,11 +2,17 @@
   <div class="temperature-scale">
     <p class="temperature-scale__degree">º</p>
     <div class="temperature-scale__toggle">
-      <div class="temperature-scale__items temperature-scale__item-1">
+      <div
+        @click="setCelsiusTemperature"
+        class="temperature-scale__items temperature-scale__item-1"
+      >
         <input id="celsus" type="radio" name="radio" value="on" checked />
         <label for="celsus">C</label>
       </div>
-      <div class="temperature-scale__items temperature-scale__item-2">
+      <div
+        @click="setFahrenheitTemperature"
+        class="temperature-scale__items temperature-scale__item-2"
+      >
         <input id="fahrenheit" type="radio" name="radio" value="off" />
         <label for="fahrenheit">F</label>
       </div>
@@ -17,6 +23,14 @@
 <script>
 export default {
   name: "temperature-scale",
+  methods: {
+    setFahrenheitTemperature() {
+      this.$store.commit("toggleFahrenheitTemperature", true);
+    },
+    setCelsiusTemperature() {
+      this.$store.commit("toggleFahrenheitTemperature", false);
+    },
+  },
 };
 </script>
 

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import { kelvinToFahrenheit } from "@/js/formules";
 
 export const store = createStore({
   state() {
@@ -8,6 +9,8 @@ export const store = createStore({
       currentWeather: null,
       apiKey: null,
       currentPosition: null,
+      inFahrenheit: false,
+      fahrenheitTemperature: null,
     };
   },
   getters: {
@@ -15,6 +18,8 @@ export const store = createStore({
     getCurrentWeather: (state) => state.currentWeather,
     getApiKey: (state) => state.apiKey,
     getCurrentPosition: (state) => state.currentPosition,
+    getFahrenheitBoolean: (state) => state.inFahrenheit,
+    getFahrenheitTemperature: (state) => state.fahrenheitTemperature,
   },
   mutations: {
     setCurrentCity(state, payload) {
@@ -25,6 +30,12 @@ export const store = createStore({
     },
     setCurrentPosition(state, payload) {
       state.currentPosition = payload;
+    },
+    toggleFahrenheitTemperature(state, payload) {
+      state.inFahrenheit = payload;
+    },
+    setFahrenheitTemperature(state, payload) {
+      state.fahrenheitTemperature = payload;
     },
   },
   actions: {
@@ -40,6 +51,10 @@ export const store = createStore({
         )
         .then((response) => response.data);
       state.commit("setCurrentWeather", weatherByName);
+      state.commit(
+        "setFahrenheitTemperature",
+        kelvinToFahrenheit(weatherByName.main.temp).toFixed(0)
+      );
     },
     async setWeatherByCoords(state) {
       const weatherByCoords = await axios
@@ -49,6 +64,10 @@ export const store = createStore({
         .then((response) => response.data);
       state.commit("setCurrentWeather", weatherByCoords);
       state.commit("setCurrentCity", weatherByCoords.name);
+      state.commit(
+        "setFahrenheitTemperature",
+        kelvinToFahrenheit(weatherByCoords.main.temp).toFixed(0)
+      );
     },
   },
 });
