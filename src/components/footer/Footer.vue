@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { hectopascalToMillimetersMercury } from "@/js/formules";
+
 export default {
   name: "footer-weather",
   computed: {
@@ -42,9 +44,7 @@ export default {
       if (this.apiData) {
         const hectopascalPressure = this.apiData.main.pressure;
         return Math.round(
-          this.hectopascalToMillimetersMercury(
-            parseInt(hectopascalPressure, 10)
-          )
+          hectopascalToMillimetersMercury(parseInt(hectopascalPressure, 10))
         );
       } else return "no data";
     },
@@ -60,9 +60,6 @@ export default {
     },
   },
   methods: {
-    hectopascalToMillimetersMercury(num) {
-      return num * 0.75006;
-    },
     convertWindDirection(num) {
       if (num > 338 || num <= 23) {
         return "north";
