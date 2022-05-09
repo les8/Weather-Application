@@ -50,12 +50,17 @@ export default {
       this.inChanges = true;
     },
     setCurrentCity() {
-      this.$store.commit("setCurrentCity", this.inputCity);
+      this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
       this.$store.dispatch("setWeatherByName");
       this.inChanges = false;
     },
     getLocalWeather() {
       this.$store.dispatch("setWeatherByCoords");
+    },
+    strBeautify(str) {
+      const str2 = str.toLowerCase();
+      const str3 = str2.charAt(0).toUpperCase() + str2.slice(1);
+      return str3;
     },
   },
 };
