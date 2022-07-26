@@ -39,11 +39,6 @@ export const store = createStore({
     },
   },
   actions: {
-    async setCurrentPosition(state) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        state.commit("setCurrentPosition", pos.coords);
-      });
-    },
     async setWeatherByName(state) {
       const weatherByName = await axios
         .get(
@@ -57,6 +52,14 @@ export const store = createStore({
       );
     },
     async setWeatherByCoords(state) {
+      function getCoordinates() {
+        return new Promise(function (resolve, reject) {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
+      }
+      await getCoordinates().then((pos) =>
+        state.commit("setCurrentPosition", pos.coords)
+      );
       const weatherByCoords = await axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${this.state.currentPosition.latitude}&lon=${this.state.currentPosition.longitude}&appid=${this.state.apiKey}`
