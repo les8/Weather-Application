@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       inputCity: "",
+      beforeEditCity: this.inputCity,
       inChanges: false,
     };
   },
@@ -46,12 +47,15 @@ export default {
   },
   methods: {
     editCurrentCity() {
+      this.beforeEditCity = this.inputCity;
       this.inputCity = "";
       this.inChanges = true;
     },
     setCurrentCity() {
-      this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
-      this.$store.dispatch("setWeatherByName");
+      if (this.inputCity !== "") {
+        this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
+        this.$store.dispatch("setWeatherByName");
+      } else this.inputCity = this.beforeEditCity;
       this.inChanges = false;
     },
     getLocalWeather() {
@@ -76,7 +80,7 @@ export default {
     height: 97px;
     padding: 30px;
     border-radius: 8px;
-    background-color: $main-color;
+    background-color: $primary-color;
     font-size: $text-search-size;
     color: $secondary-color;
 
@@ -125,7 +129,7 @@ export default {
     width: 19px;
     height: 23px;
     margin-right: 12px;
-    fill: $main-color;
+    fill: $primary-color;
   }
 }
 </style>

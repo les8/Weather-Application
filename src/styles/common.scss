@@ -4,6 +4,6 @@
 
 body {
     font-family: Lato;
-    color: $main-color;
-    background-color: $secondary-color;
+    color: $primary-color;
+    background: linear-gradient($background-secondary, $background-primary);
 }
