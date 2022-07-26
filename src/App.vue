@@ -1,11 +1,15 @@
 <template>
   <div class="wrapper">
-    <div class="header">
-      <Location />
-      <TemperatureScale />
+    <!-- тут нужно будет продумать ситуацию, когда пользователь не хочет использовать геолокацию -->
+    <div v-if="!storeCity" class="loader"></div>
+    <div v-else>
+      <div class="header">
+        <Location />
+        <TemperatureScale />
+      </div>
+      <Main />
+      <Footer />
     </div>
-    <Main />
-    <Footer />
   </div>
 </template>
 
@@ -24,6 +28,11 @@ export default {
   },
   mounted() {
     this.$store.dispatch("setWeatherByCoords");
+  },
+  computed: {
+    storeCity() {
+      return this.$store.getters.getCurrentCity;
+    },
   },
 };
 </script>
