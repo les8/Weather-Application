@@ -5,7 +5,7 @@ import { kelvinToFahrenheit } from "@/js/formules";
 export const store = createStore({
   state() {
     return {
-      currentCity: "Okinawa",
+      currentCity: null,
       currentWeather: null,
       apiKey: null,
       currentPosition: null,
