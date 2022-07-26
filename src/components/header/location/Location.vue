@@ -80,7 +80,7 @@ export default {
     height: 97px;
     padding: 30px;
     border-radius: 8px;
-    background-color: $main-color;
+    background-color: $primary-color;
     font-size: $text-search-size;
     color: $secondary-color;
 
@@ -129,7 +129,7 @@ export default {
     width: 19px;
     height: 23px;
     margin-right: 12px;
-    fill: $main-color;
+    fill: $primary-color;
   }
 }
 </style>

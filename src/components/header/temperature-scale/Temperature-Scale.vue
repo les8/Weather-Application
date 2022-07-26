@@ -59,7 +59,7 @@ export default {
 
     input[type="radio"]:checked + label {
       background: rgba(255, 255, 255, 0.4);
-      color: $main-color;
+      color: $primary-color;
     }
 
     label {
