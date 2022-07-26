@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       inputCity: "",
+      beforeEditCity: this.inputCity,
       inChanges: false,
     };
   },
@@ -46,12 +47,15 @@ export default {
   },
   methods: {
     editCurrentCity() {
+      this.beforeEditCity = this.inputCity;
       this.inputCity = "";
       this.inChanges = true;
     },
     setCurrentCity() {
-      this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
-      this.$store.dispatch("setWeatherByName");
+      if (this.inputCity !== "") {
+        this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
+        this.$store.dispatch("setWeatherByName");
+      } else this.inputCity = this.beforeEditCity;
       this.inChanges = false;
     },
     getLocalWeather() {
