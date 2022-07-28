@@ -3,14 +3,14 @@
     <p class="temperature-scale__degree">º</p>
     <div class="temperature-scale__toggle">
       <div
-        @click="setCelsiusTemperature"
+        @click="setTemperatureInCelsius"
         class="temperature-scale__items temperature-scale__item-1"
       >
         <input id="celsus" type="radio" name="radio" value="on" checked />
         <label for="celsus">C</label>
       </div>
       <div
-        @click="setFahrenheitTemperature"
+        @click="setTemperatureInFahrenheit"
         class="temperature-scale__items temperature-scale__item-2"
       >
         <input id="fahrenheit" type="radio" name="radio" value="off" />
@@ -21,15 +21,18 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   name: "temperature-scale",
   methods: {
-    setFahrenheitTemperature() {
-      this.$store.commit("toggleFahrenheitTemperature", true);
+    setTemperatureInFahrenheit() {
+      this.toggleFahrenheitTemperature(true);
     },
-    setCelsiusTemperature() {
-      this.$store.commit("toggleFahrenheitTemperature", false);
+    setTemperatureInCelsius() {
+      this.toggleFahrenheitTemperature(false);
     },
+    ...mapMutations(["toggleFahrenheitTemperature"]),
   },
 };
 </script>

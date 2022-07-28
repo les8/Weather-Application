@@ -23,41 +23,30 @@
 
 <script>
 import { hectopascalToMillimetersMercury } from "@/js/formules";
+import { mapState } from "vuex";
 
 export default {
   name: "footer-weather",
   computed: {
-    apiData() {
-      return this.$store.getters.getCurrentWeather;
-    },
     wind() {
-      if (this.apiData) {
-        return this.apiData.wind.speed.toFixed(1);
-      } else return "no data";
+      return this.currentWeather.wind.speed.toFixed(1);
     },
     windDirection() {
-      if (this.apiData) {
-        return this.convertWindDirection(this.apiData.wind.deg);
-      } else return "no direction";
+      return this.convertWindDirection(this.currentWeather.wind.deg);
     },
     pressure() {
-      if (this.apiData) {
-        const hectopascalPressure = this.apiData.main.pressure;
-        return Math.round(
-          hectopascalToMillimetersMercury(parseInt(hectopascalPressure, 10))
-        );
-      } else return "no data";
+      const hectopascalPressure = this.currentWeather.main.pressure;
+      return Math.round(
+        hectopascalToMillimetersMercury(parseInt(hectopascalPressure, 10))
+      );
     },
     humidity() {
-      if (this.apiData) {
-        return this.apiData.main.humidity;
-      } else return "no data";
+      return this.currentWeather.main.humidity;
     },
     visibility() {
-      if (this.apiData) {
-        return this.apiData.visibility;
-      } else return "no data";
+      return this.currentWeather.visibility;
     },
+    ...mapState(["currentWeather"]),
   },
   methods: {
     convertWindDirection(num) {
