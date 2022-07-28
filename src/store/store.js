@@ -5,21 +5,13 @@ import { kelvinToFahrenheit } from "@/js/formules";
 export const store = createStore({
   state() {
     return {
-      currentCity: null,
-      currentWeather: null,
-      apiKey: null,
-      currentPosition: null,
+      currentCity: "",
+      currentWeather: {},
+      apiKey: "",
+      currentPosition: {},
       inFahrenheit: false,
-      fahrenheitTemperature: null,
+      fahrenheitTemperature: "",
     };
-  },
-  getters: {
-    getCurrentCity: (state) => state.currentCity,
-    getCurrentWeather: (state) => state.currentWeather,
-    getApiKey: (state) => state.apiKey,
-    getCurrentPosition: (state) => state.currentPosition,
-    getFahrenheitBoolean: (state) => state.inFahrenheit,
-    getFahrenheitTemperature: (state) => state.fahrenheitTemperature,
   },
   mutations: {
     setCurrentCity(state, payload) {

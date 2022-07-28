@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <!-- тут нужно будет продумать ситуацию, когда пользователь не хочет использовать геолокацию -->
-    <div v-if="!storeCity" class="loader"></div>
+    <div v-if="!currentCity" class="loader"></div>
     <div v-else>
       <div class="header">
         <Location />
@@ -18,6 +18,8 @@ import Location from "./components/header/location/Location.vue";
 import TemperatureScale from "./components/header/temperature-scale/Temperature-Scale.vue";
 import Main from "./components/main/Main.vue";
 import Footer from "./components/footer/Footer.vue";
+import { mapState, mapActions } from "vuex";
+
 export default {
   name: "App",
   components: {
@@ -27,13 +29,10 @@ export default {
     Footer,
   },
   mounted() {
-    this.$store.dispatch("setWeatherByCoords");
+    this.setWeatherByCoords();
   },
-  computed: {
-    storeCity() {
-      return this.$store.getters.getCurrentCity;
-    },
-  },
+  computed: mapState(["currentCity"]),
+  methods: mapActions(["setWeatherByCoords"]),
 };
 </script>
 

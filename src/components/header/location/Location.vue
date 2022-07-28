@@ -6,19 +6,19 @@
         name="city-search"
         placeholder="search for a lovely place..."
         v-model="inputCity"
-        @keydown.enter="setCurrentCity"
+        @keydown.enter="submitCurrentCity"
       />
-      <input type="submit" value="OK" @click="setCurrentCity" />
+      <input type="submit" value="OK" @click="submitCurrentCity" />
     </div>
     <div v-else class="location__info">
       <h3 class="location__name" @click="editCurrentCity">
-        {{ storeCity }}
+        {{ currentCity }}
       </h3>
       <div class="location__managment">
         <h6 class="location__change" @click="editCurrentCity">Change Region</h6>
         <div class="location__mycoordinates">
           <SvgIcon name="location" className="location__icon" />
-          <p @click="getLocalWeather">My Location</p>
+          <p @click="setWeatherByCoords">My Location</p>
         </div>
       </div>
     </div>
@@ -27,6 +27,7 @@
 
 <script>
 import SvgIcon from "./../../constructor/SvgIcon.vue";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "location-block",
@@ -37,11 +38,7 @@ export default {
       inChanges: false,
     };
   },
-  computed: {
-    storeCity() {
-      return this.$store.getters.getCurrentCity;
-    },
-  },
+  computed: mapState(["currentCity"]),
   components: {
     SvgIcon,
   },
@@ -51,21 +48,20 @@ export default {
       this.inputCity = "";
       this.inChanges = true;
     },
-    setCurrentCity() {
+    submitCurrentCity() {
       if (this.inputCity !== "") {
-        this.$store.commit("setCurrentCity", this.strBeautify(this.inputCity));
-        this.$store.dispatch("setWeatherByName");
+        this.setCurrentCity(this.strBeautify(this.inputCity));
+        this.setWeatherByName();
       } else this.inputCity = this.beforeEditCity;
       this.inChanges = false;
-    },
-    getLocalWeather() {
-      this.$store.dispatch("setWeatherByCoords");
     },
     strBeautify(str) {
       const str2 = str.toLowerCase();
       const str3 = str2.charAt(0).toUpperCase() + str2.slice(1);
       return str3;
     },
+    ...mapMutations(["setCurrentCity"]),
+    ...mapActions(["setWeatherByCoords", "setWeatherByName"]),
   },
 };
 </script>

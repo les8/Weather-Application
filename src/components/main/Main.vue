@@ -13,6 +13,7 @@
 <script>
 import SvgIcon from "../constructor/SvgIcon.vue";
 import { kelvinToСelsius } from "@/js/formules";
+import { mapState } from "vuex";
 
 export default {
   name: "main-weather",
@@ -20,47 +21,35 @@ export default {
     SvgIcon,
   },
   computed: {
-    apiData() {
-      return this.$store.getters.getCurrentWeather;
-    },
-    inFahrenheit() {
-      return this.$store.getters.getFahrenheitBoolean;
-    },
-    fahrenheitTemperature() {
-      return this.$store.getters.getFahrenheitTemperature;
-    },
     celsiusTemperature() {
-      if (this.apiData) {
-        const temperature = this.apiData.main.temp;
-        return Math.round(kelvinToСelsius(parseInt(temperature, 10)));
-      } else return "no data";
+      const temperature = this.currentWeather.main.temp;
+      return Math.round(kelvinToСelsius(parseInt(temperature, 10)));
     },
     weatherInfo() {
-      if (this.apiData) {
-        return this.apiData.weather[0].description;
-      } else return "no data";
+      return this.currentWeather.weather[0].description;
     },
     addWeatherIcon() {
-      if (this.apiData) {
-        return this.choseWeatherIcon();
-      } else return "location";
+      return this.choseWeatherIcon();
     },
+    ...mapState(["currentWeather", "inFahrenheit", "fahrenheitTemperature"]),
   },
   methods: {
     choseWeatherIcon() {
-      if (this.apiData.weather[0].main === "Clear") {
+      if (this.currentWeather.weather[0].main === "Clear") {
         return "sun";
-      } else if (this.apiData.weather[0].main === "Rain") {
+      } else if (this.currentWeather.weather[0].main === "Rain") {
         return "rain";
-      } else if (this.apiData.weather[0].main === "Snow") {
+      } else if (this.currentWeather.weather[0].main === "Snow") {
         return "snow";
-      } else if (this.apiData.weather[0].description === "overcast clouds") {
+      } else if (
+        this.currentWeather.weather[0].description === "overcast clouds"
+      ) {
         return "cloud";
-      } else if (this.apiData.weather[0].main === "Clouds") {
+      } else if (this.currentWeather.weather[0].main === "Clouds") {
         return "partly";
-      } else if (this.apiData.weather[0].main === "Mist") {
+      } else if (this.currentWeather.weather[0].main === "Mist") {
         return "cloud";
-      } else return "location"; //for catch errors, becouse api docs is shit
+      } else return "location"; //for catch errors, becouse api docs have some problems:)
     },
   },
 };
