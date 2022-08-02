@@ -1,38 +1,34 @@
 <template>
   <div class="wrapper">
-    <!-- тут нужно будет продумать ситуацию, когда пользователь не хочет использовать геолокацию -->
-    <div v-if="!currentCity" class="loader"></div>
-    <div v-else>
-      <div class="header">
-        <Location />
-        <TemperatureScale />
-      </div>
-      <Main />
-      <Footer />
-    </div>
+    <Auth v-if="!apiKey" />
+    <Loader v-else-if="!currentCity" />
+    <StartPage v-else />
   </div>
 </template>
 
 <script>
-import Location from "./components/header/location/Location.vue";
-import TemperatureScale from "./components/header/temperature-scale/Temperature-Scale.vue";
-import Main from "./components/main/Main.vue";
-import Footer from "./components/footer/Footer.vue";
-import { mapState, mapActions } from "vuex";
+import Auth from "./components/auth/Auth.vue";
+import Loader from "./components/loader/Loader.vue";
+import StartPage from "./components/start/StartPage.vue";
+import { mapState, mapMutations } from "vuex";
+import { getCookie } from "./js/cookie";
 
 export default {
   name: "App",
   components: {
-    Location,
-    TemperatureScale,
-    Main,
-    Footer,
+    Auth,
+    Loader,
+    StartPage,
   },
-  mounted() {
-    this.setWeatherByCoords();
+  created() {
+    if (getCookie("key")) {
+      // for switch off registration while have no log out features
+      // document.cookie = `${getCookie("key")}; max-age=-1`;
+      this.setCurrentApi(getCookie("key"));
+    }
   },
-  computed: mapState(["currentCity"]),
-  methods: mapActions(["setWeatherByCoords"]),
+  computed: mapState(["apiKey", "currentCity"]),
+  methods: mapMutations(["setCurrentApi"]),
 };
 </script>
 
@@ -42,11 +38,5 @@ export default {
 
 .wrapper {
   padding: 100px 200px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 97px;
 }
 </style>

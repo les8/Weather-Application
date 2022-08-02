@@ -2,7 +2,7 @@
   <div class="location">
     <div v-if="inChanges" class="location__search">
       <input
-        type="search"
+        type="text"
         name="city-search"
         placeholder="search for a lovely place..."
         v-model="inputCity"
@@ -80,7 +80,7 @@ export default {
     font-size: $text-search-size;
     color: $secondary-color;
 
-    input[type="search"] {
+    input[name="city-search"] {
       flex-grow: 1;
       border: none;
       outline: none;

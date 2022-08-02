@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import SvgIcon from "../constructor/SvgIcon.vue";
+import SvgIcon from "./../constructor/SvgIcon.vue";
 import { kelvinToСelsius } from "@/js/formules";
 import { mapState } from "vuex";
 
