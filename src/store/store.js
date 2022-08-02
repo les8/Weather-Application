@@ -29,6 +29,9 @@ export const store = createStore({
     setFahrenheitTemperature(state, payload) {
       state.fahrenheitTemperature = payload;
     },
+    setCurrentApi(state, payload) {
+      state.apiKey = payload;
+    },
   },
   actions: {
     async setWeatherByName(state) {
