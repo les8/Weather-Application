@@ -5,7 +5,10 @@
         type="text"
         name="city-search"
         placeholder="search for a lovely place..."
+        title="Must contain only Latin letters spaces and hyphens"
+        autocomplete="off"
         v-model="inputCity"
+        @input="validateSearch"
         @keydown.enter="submitCurrentCity"
       />
       <input type="submit" value="OK" @click="submitCurrentCity" />
@@ -59,6 +62,9 @@ export default {
       const str2 = str.toLowerCase();
       const str3 = str2.charAt(0).toUpperCase() + str2.slice(1);
       return str3;
+    },
+    validateSearch(e) {
+      this.inputCity = e.target.value.replace(/[^A-z,a-z,\s,-]/g, "");
     },
     ...mapMutations(["setCurrentCity"]),
     ...mapActions(["setWeatherByCoords", "setWeatherByName"]),
