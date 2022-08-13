@@ -35,16 +35,20 @@ export const store = createStore({
   },
   actions: {
     async setWeatherByName(state) {
-      const weatherByName = await axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${this.state.currentCity}&appid=${this.state.apiKey}`
-        )
-        .then((response) => response.data);
-      state.commit("setCurrentWeather", weatherByName);
-      state.commit(
-        "setFahrenheitTemperature",
-        kelvinToFahrenheit(weatherByName.main.temp).toFixed(0)
-      );
+      try {
+        const weatherByName = await axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${this.state.currentCity}&appid=${this.state.apiKey}`
+          )
+          .then((response) => response.data);
+        state.commit("setCurrentWeather", weatherByName);
+        state.commit(
+          "setFahrenheitTemperature",
+          kelvinToFahrenheit(weatherByName.main.temp).toFixed(0)
+        );
+      } catch {
+        alert("Incorrect name");
+      }
     },
     async setWeatherByCoords(state) {
       function getCoordinates() {
@@ -55,17 +59,21 @@ export const store = createStore({
       await getCoordinates().then((pos) =>
         state.commit("setCurrentPosition", pos.coords)
       );
-      const weatherByCoords = await axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${this.state.currentPosition.latitude}&lon=${this.state.currentPosition.longitude}&appid=${this.state.apiKey}`
-        )
-        .then((response) => response.data);
-      state.commit("setCurrentWeather", weatherByCoords);
-      state.commit("setCurrentCity", weatherByCoords.name);
-      state.commit(
-        "setFahrenheitTemperature",
-        kelvinToFahrenheit(weatherByCoords.main.temp).toFixed(0)
-      );
+      try {
+        const weatherByCoords = await axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${this.state.currentPosition.latitude}&lon=${this.state.currentPosition.longitude}&appid=${this.state.apiKey}`
+          )
+          .then((response) => response.data);
+        state.commit("setCurrentWeather", weatherByCoords);
+        state.commit("setCurrentCity", weatherByCoords.name);
+        state.commit(
+          "setFahrenheitTemperature",
+          kelvinToFahrenheit(weatherByCoords.main.temp).toFixed(0)
+        );
+      } catch {
+        alert("Something went wrong");
+      }
     },
   },
 });
