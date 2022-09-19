@@ -41,6 +41,8 @@ export default {
 @import "/src/styles/variables.scss";
 
 .temperature-scale {
+  position: absolute;
+  right: 0;
   display: flex;
   font-size: $subtitle-size;
 

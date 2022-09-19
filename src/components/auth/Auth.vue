@@ -5,7 +5,7 @@
       <input
         type="text"
         name="auth-input"
-        placeholder="enter your api key..."
+        placeholder="Enter your api key..."
         v-model="inputAPI"
         @keydown.enter="chechKey"
       />
@@ -79,11 +79,24 @@ export default {
 @import "/src/styles/variables.scss";
 @import "/src/styles/common.scss";
 .auth {
-  width: 579px;
+  width: 80%;
+  padding: 100px 0;
+  margin: 0 auto;
+
+  @media (max-width: $phone-max) {
+    width: calc(100vw - 32px);
+    padding: 64px 0 0;
+    margin: auto;
+  }
 
   &__title {
     font-size: $title-size;
     margin-bottom: 32px;
+
+    @media (max-width: $phone-max) {
+      margin-bottom: 16px;
+      text-align: center;
+    }
   }
 
   &__input {
@@ -97,12 +110,22 @@ export default {
     font-size: $text-search-size;
     color: $secondary-color;
 
+    @media (max-width: $phone-max) {
+      height: 53px;
+      font-size: $subtitle-size;
+      line-height: 18;
+    }
+
     input[name="auth-input"] {
       flex-grow: 1;
       border: none;
       outline: none;
       -webkit-appearance: none;
       vertical-align: middle;
+
+      @media (max-width: $phone-max) {
+        line-height: 18px;
+      }
     }
 
     input[type="submit"] {
@@ -128,6 +151,12 @@ export default {
     &:hover {
       background-color: #d1ec57;
     }
+
+    @media (max-width: $phone-max) {
+      height: 53px;
+      font-size: $subtitle-size;
+      width: 150px;
+    }
   }
 
   &__link {
@@ -135,7 +164,8 @@ export default {
     justify-content: center;
     align-items: center;
 
-    &:hover {
+    &:hover,
+    &:active {
       background-color: #d1ec57;
     }
   }
@@ -145,6 +175,10 @@ export default {
     font-size: $text-size;
     font-style: italic;
     line-height: 32px;
+
+    @media (max-width: $phone-max) {
+      font-size: $subtitle-size;
+    }
 
     a {
       color: #d1ec57;
