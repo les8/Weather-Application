@@ -4,7 +4,7 @@
       <input
         type="text"
         name="city-search"
-        placeholder="search for a lovely place..."
+        placeholder="Search for a lovely place..."
         title="Must contain only Latin letters spaces and hyphens"
         autocomplete="off"
         v-model="inputCity"
@@ -47,6 +47,7 @@ export default {
   },
   methods: {
     editCurrentCity() {
+      this.$el.style.zIndex = 1;
       this.beforeEditCity = this.inputCity;
       this.inputCity = "";
       this.inChanges = true;
@@ -57,6 +58,7 @@ export default {
         this.setWeatherByName();
       } else this.inputCity = this.beforeEditCity;
       this.inChanges = false;
+      this.$el.style.zIndex = 0;
     },
     strBeautify(str) {
       const str2 = str.toLowerCase();
@@ -76,6 +78,8 @@ export default {
 @import "/src/styles/variables.scss";
 
 .location {
+  width: 100%;
+
   &__search {
     display: flex;
     width: 579px;
@@ -85,6 +89,17 @@ export default {
     background-color: $primary-color;
     font-size: $text-search-size;
     color: $secondary-color;
+
+    @media (max-width: $tablet-max) {
+      width: 350px;
+      height: 54px;
+      padding: 18px;
+      font-size: $subtitle-size;
+    }
+
+    @media (max-width: $phone-max) {
+      width: 100%;
+    }
 
     input[name="city-search"] {
       flex-grow: 1;
@@ -106,6 +121,10 @@ export default {
   }
   &__managment {
     display: flex;
+
+    @media (max-width: $phone-max) {
+      justify-content: space-between;
+    }
   }
   &__change {
     margin-right: 29px;

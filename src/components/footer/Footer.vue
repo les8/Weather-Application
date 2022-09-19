@@ -78,7 +78,24 @@ export default {
 .footer {
   display: flex;
   justify-content: space-between;
-  margin: 0 auto;
+
+  @media (max-width: $phone-max) {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  &__item {
+    @media (max-width: $phone-max) {
+      margin-bottom: 16px;
+
+      &:nth-child(odd) {
+        width: 65%;
+      }
+      &:nth-child(even) {
+        width: 35%;
+      }
+    }
+  }
 
   &__subtitle {
     font-size: $subtitle-size;
@@ -87,6 +104,10 @@ export default {
 
   &__info {
     font-size: $text-size;
+
+    @media (max-width: $phone-max) {
+      font-size: $subtitle-size;
+    }
   }
 }
 </style>

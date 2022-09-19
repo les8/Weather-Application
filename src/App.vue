@@ -35,8 +35,4 @@ export default {
 <style lang="scss">
 @import "./styles/common.scss";
 @import "./styles/settings.scss";
-
-.wrapper {
-  padding: 100px 200px;
-}
 </style>

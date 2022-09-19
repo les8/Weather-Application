@@ -61,8 +61,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 130px;
-  margin-bottom: 200px;
 
   &__head {
     display: flex;
@@ -72,6 +70,11 @@ export default {
   &__temperature {
     font-size: 180px;
     line-height: 216px;
+
+    @media (max-width: $phone-max) {
+      font-size: 120px;
+      line-height: 140px;
+    }
   }
 
   &__icon {
@@ -79,6 +82,11 @@ export default {
     height: 200px;
     margin-right: 15px;
     fill: rgb(209, 236, 87);
+
+    @media (max-width: $phone-max) {
+      width: 120px;
+      height: 120px;
+    }
   }
 
   &__info {
